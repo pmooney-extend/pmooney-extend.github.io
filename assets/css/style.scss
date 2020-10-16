@@ -1,0 +1,87 @@
+---
+---
+
+$font-family: "Nunito Sans", sans-serif;
+
+$title-color: #090637;
+$subhead-color: #192924;
+$copy-color: #51545e;
+$link-color: #0033cc;
+$key-line-color: #d5dce0;
+$info-color: #f8f8f8;
+
+$title-size: 26px;
+$subtitle-size: 22px;
+$subhead-size: 18px;
+$copy-size: 16px;
+
+$extra-bold-font: 800;
+$bold-font: 700;
+
+@import "{{ site.theme }}";
+
+a.btn {
+  display: none;
+}
+
+body {
+  font-family: $font-family;
+  .main-content {
+    img {
+      padding-top: 16px;
+      padding-bottom: 16px;
+    }
+    h1 {
+      color: $title-color;
+      font-weight: $extra-bold-font;
+      font-size: $title-size;
+      margin-top: 56px !important;
+    }
+    h2 {
+      color: $title-color;
+      font-size: $subtitle-size;
+      font-weight: $bold-font;
+    }
+
+    p {
+      color: $copy-color;
+      font-size: $copy-size;
+    }
+
+    ul {
+      font-size: $copy-size;
+      color: $copy-color;
+    }
+
+    hr {
+      color: $key-line-color;
+      height: 2.5px;
+    }
+
+    strong {
+      font-size: $copy-size;
+      color: $copy-color;
+    }
+
+    a {
+      color: $link-color;
+      font-size: $copy-size;
+    }
+    .info-container {
+      padding: 24px;
+      border-left: 10px solid $link-color;
+      background-color: $info-color;
+      margin: 24px 0;
+    }
+  }
+}
+
+.page-header {
+  background: $info-color;
+  border-bottom: 10px solid $title-color;
+}
+
+.project-name {
+  color: $title-color;
+  margin-top: 50px;
+}
