@@ -86,8 +86,7 @@ The **Product Offer** is used to display one or more protection plan offers dire
 <img src="assets/images/product-offer-view.png" />
 
 <div class="info-container">
-    <strong>Important Note</strong>: Only products that are <strong>matched</strong> and <strong>active</strong> will 
-    display offers. 
+    <strong>Important Note</strong>: Only products that are <strong>matched</strong> and <strong>active</strong> will display offers. 
 </div>
 
 <h3 id="offer-element">Adding the Extend offer element</h3>
@@ -106,7 +105,7 @@ Add an HTML element where you would like to place the Extend offer buttons. For 
     <strong>Pro Tip</strong>: An easy way to find where to place the parent div element is to open the dev tools on a product page and inspect an element above where you would like the cart offers to appear, copy an attribute, and search for it in one of the liquid files mentioned above.
 </div>
 
-Verify that the div has been added to the correct spot by temporarily adding some text, saving, and previewing your poduct page. Once you confirm that the text is showing in the correct spot, make sure to remove it!
+Verify that the div has been added to the correct spot by temporarily adding some text, saving, and previewing your product page. Once you confirm that the text is showing in the correct spot, make sure to remove it!
 
 <img src="assets/images/extend-offer-div-test.png" />
 
@@ -162,12 +161,10 @@ Extend.buttons.render(
 <img src="assets/images/render-offer.jpg" />
 
 <div class="info-container">
-    <strong>Important Note</strong>: 
-    {% raw %}<strong>{{ product.selected_or_first_available_variant.id }}</strong>{% endraw %} allows you to get the first selected <strong>variantId</strong> when the page loads in your Shopify store, however, this variable <strong>does not update</strong> when a user changes the variant. The <a href="#multiple-variants">next section</a> covers how to handle this scenario.
+    <strong>Important Note</strong>: {% raw %}<strong>{{ product.selected_or_first_available_variant.id }}</strong>{% endraw %} allows you to get the first selected <strong>variantId</strong> when the page loads in your Shopify store, however, this variable <strong>does not update</strong> when a user changes the variant. The <a href="#multiple-variants">next section</a> covers how to handle this scenario.
 </div>
 
-Verify that the warranty buttons are rendering by previewing your theme and viewing a product that is active and enabled. If you don’t know a product that fits this criteria, you can find one in the merchant portal 
-[<u>merchants.extend.com</u>](https://merchants.extend.com/login).
+Verify that the warranty buttons are rendering by previewing your theme and viewing a product that is active and enabled. If you don’t know a product that fits this criteria, you can find one in the merchant portal [<u>merchants.extend.com</u>](https://merchants.extend.com/login).
 
 <img src="assets/images/render-offer-visible.png" />
 
@@ -444,7 +441,7 @@ Extend.buttons.renderSimpleOffer(el, {
 [`ExtendShopify.addPlanToCart`](#api-add-plan-to-cart) also takes a callback that can be used to refresh the cart to reflect the recently added warranty.
 
 ```javascript
-function callback(err) {
+function (err) {
   // an error occurred
   if (err) {
     return
@@ -864,7 +861,7 @@ Welcome to the `ExtendShopify` API reference! We're happy that you've decided to
 * [Warranty already in cart(`#warrantyAlreadyInCart`)](#api-warranty-already-in-cart)
 
 <h1 id="api-add-plan-to-cart">
-    <code>ExtendShopify.addPlanToCart(options: AddToCartOptions, callback: function)</code>
+    ExtendShopify.addPlanToCart(options: AddToCartOptions, callback: function)
 </h1>
 
 ---
@@ -923,7 +920,7 @@ interface AddToCartOpts {
 ```
 
 <h1 id="api-normalize-cart">
-    <code>ExtendShopify.normalizeCart(options: NormalizeCartOptions, callback: function)</code>
+    ExtendShopify.normalizeCart(options: NormalizeCartOptions, callback: function)
 </h1>
 
 ---
@@ -1014,7 +1011,7 @@ interface Cart {
 ```
 
 <h1 id="api-handle-add-to-cart">
-    <code>ExtendShopify.handleAddToCart(element: string, options: HandleAddToCartOpts)</code>
+   ExtendShopify.handleAddToCart(element: string, options: HandleAddToCartOpts)
 </h1>
 
 ---
@@ -1070,7 +1067,7 @@ interface HandleAddToCartOpts {
 
 
 <h1 id='api-warranty-already-in-cart'>
-    <code>ExtendShopify.warrantyAlreadyInCart(variantId: string, cartItems: CartItem[])</code>
+    ExtendShopify.warrantyAlreadyInCart(variantId: string, cartItems: CartItem[])
 </h1>
 
 ---
