@@ -158,7 +158,7 @@ Extend.buttons.render(
 )
 ```
 
-<img src="assets/images/render-offer.jpg" />
+<img src="assets/images/render-offer.png" />
 
 <div class="info-container">
     <strong>Important Note</strong>: {% raw %}<strong>{{ product.selected_or_first_available_variant.id }}</strong>{% endraw %} allows you to get the first selected <strong>variantId</strong> when the page loads in your Shopify store, however, this variable <strong>does not update</strong> when a user changes the variant. The <a href="#multiple-variants">next section</a> covers how to handle this scenario.
@@ -286,7 +286,7 @@ addToCartButton.addEventListener("click", function (e) {
 });
 ```
 
-<img src="assets/images/prod-add-to-cart.jpg">
+<img src="assets/images/prod-add-to-cart.png">
 
 To launch the offer modal if a warranty is not selected, set `modal: true`. If you do not want to launch the offer modal, set `modal: false`.
 
@@ -306,7 +306,7 @@ var productForm = document.querySelector(".product-form");
 productForm.submit();
 ```
 
-<img src="assets/images/product-submit.jpg">
+<img src="assets/images/product-submit.png">
 
 <h1 id="cart-offers">Adding cart offers</h1>
 
@@ -399,7 +399,7 @@ var quantity = el.getAttribute("data-extend-quantity");
 
 Use the [`warrantyAlreadyInCart()`](#api-warranty-already-in-cart) function to determine if you should show the offer button.
 
-you can access the shopify cart object by declaring this variable at the top of your page
+The shopify cart object can be accessed by declaring this variable at the top of your snippet:
 
 ```liquid
 var cart = {% raw %}{{ cart | json }}{% endraw %}
@@ -452,7 +452,7 @@ function (err) {
 }
 ```
 
-<img src="assets/images/cart-int-render-button.jpg">
+<img src="assets/images/cart-int-render-button.png">
 
 Verify the cart offer buttons are rendering correctly by previewing your theme and going to your cart page that has an active and enabled product in it. You should see the Extend cart offer button in the cart, and when you click it, it should launch the offer modal. When a shopper clicks this offer button, the modal described in the previous section will launch, and the shopper will be able to select which warranty plan he or she would like to purchase.
 
@@ -486,7 +486,7 @@ ExtendShopify.normalizeCart({ cart: cart, balance: false }, function (
 
 [`ExtendShopify.normalizeCart`](#api-normalize-cart) will return a promise that will give you the `data` and `err` object to check if the cart needs to be normalized. If the `data` object exists and the `data.updates` is set to `true`, you will then call your function to refresh the cart page. Typically reloading the page will work for most Shopify cart pages.
 
-<img src="assets/images/cart-normalization.jpg">
+<img src="assets/images/cart-normalization.png">
 
 <h3 id="cart-balance">Balanced vs unbalanced carts</h3>
 
@@ -505,7 +505,7 @@ If you are using an Ajax cart, the page does not reload whenever an item’s qua
 
 Wrap the cart integration code in a function. ex `initializeCartOffer()`. Then call the `initializeCartOffer()` function at the bottom of your script.
 
-<img src="assets/images/ajax-normalization-1.jpg">
+<img src="assets/images/ajax-normalization-1.png">
 
 Now dispatch an event whenever an item in the cart gets updated. To do this, first add an eventListener in your cart integration script.
 
@@ -524,7 +524,7 @@ window.addEventListener("normalizeCart", function () {
 });
 ```
 
-<img src="assets/images/ajax-normalization-2.jpg">
+<img src="assets/images/ajax-normalization-2.png">
 
 Now that you have the eventListener initialized, you need to find where in your code to dispatch a custom event. Find where in your Shopify theme the quantity of a cart item is updated and dispatch an event back to the cart integration script to pull in the new shopify cart object.
 
@@ -708,7 +708,7 @@ Within the same file, typically below the `item-title` element, you'll see a sec
 
 {% endraw %}
 
-Above that line, there will be an conditional to check whether the product options should be displayed. Often it will look lik e the following:
+Above this line of code, there will typically be a conditional that checks whether the product options should be displayed or not. The conditional should look something like this:
 
 {% raw %}
 
@@ -733,7 +733,7 @@ Finally, you'll see a section of code that lists the products properties. Look f
 {% raw %}
 
 ```javascript
-{%if property_size == 0%} hide{% endif %}
+{%if property_size == 0%} hide {% endif %}
 ```
 
 {% endraw %}
@@ -866,7 +866,9 @@ Welcome to the `ExtendShopify` API reference! We're happy that you've decided to
 
 ---
 
-This function adds an Extend warranty plan to the cart. However, it should only be used within a callback that is provided to an [Extend base SDK]('https://helloextend.github.io/extend-sdk-client/') function that returns an Extend Plan and Product. **N.B** If you are looking to add a product _**and**_ its associated warranty to the cart, please see [`#handleAddToCart`](#api-handle-add-to-cart) instead.
+<div>
+This function adds an Extend warranty plan to the cart. However, it should only be used within a callback that is provided to an <a href="https://helloextend.github.io/extend-sdk-client/">Extend base SDK</a> function that returns an Extend Plan and Product. **N.B** If you are looking to add a product _**and**_ its associated warranty to the cart, please see [`#handleAddToCart`](#api-handle-add-to-cart) instead.
+</div>
 
 ```javascript
 ExtendShopify.addPlanToCart({ plan, product, quantity }, callback)
@@ -925,7 +927,7 @@ interface AddToCartOpts {
 
 ---
 
-This function accepts and updates the Shopify cart object to ensure that the line item quantity of a warranty is not greater than the line item quantity of its associated product and returns an object containing the updated cart and cart updates. Therefore, this function should be executed every time the cart is updated in order to ensure a user cannot buy a warranty for a product not in the cart. While optional, a callback should almost always be passed as a second argument. This callback will be executed after the cart normalizes and should therefore be used to update the quantity input selectorson the page with their updated values, typically via a [hard refresh](#helper-functions).
+This function accepts and updates the Shopify cart object to ensure that the line item quantity of a warranty is not greater than the line item quantity of its associated product and returns an object containing the updated cart and cart updates. Therefore, this function should be executed every time the cart is updated in order to ensure a user cannot buy a warranty for a product not in the cart. While optional, a callback should almost always be passed as a second argument. This callback will be executed after the cart normalizes and should therefore be used to update the quantity input selectors on the page with their updated values, typically via a [hard refresh](#helper-functions).
 
 <div class="info-container">
     <strong>Use case: </strong> <a href="#cart-normalization">Cart normalization</a>
@@ -955,7 +957,7 @@ ExtendShopify.normalizeCart({ cart: cart, balance: false }, function (
 | Attribute                         | Data type                   | Description                                                                     |
 | :-------------------------------- |:--------------------------- | :-------------------------------------------------------------------------------|
 | cart <br/> _optional_             | object                      | Shopify cart object to be normalized                                            |
-| balance <br/> _optional_          | boolean                     | When set to `true` warranty quantity will equal the associated product quantity |
+| balance <br/> _optional_          | boolean                     | When set to `true` warranty quantity will equal the associated product quantity (see: [Balanced cart](#cart-balance)) |
 
 <h3 class="api-interface" id="api-normalize-cart-interfaces">Interfaces</h3>
 
