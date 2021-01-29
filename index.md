@@ -201,7 +201,7 @@ In order to prevent a customer from accidentally purchasing the wrong warranty f
 
 <img src="assets/images/evtlist-check.png" />
 
-Verify that you are setting the correct variant by adding a console log right before the `Extend.SetActiveProduct()` function is called. This ensures you are passing the correct `variantId`. You will also notice that if you change the variant on the page, the offer buttons will re-render.
+Verify that you are setting the correct variant by adding a console log right before the `Extend.setActiveProduct()` function is called. This ensures you are passing the correct `variantId`. You will also notice that if you change the variant on the page, the offer buttons will re-render.
 
 <h3 id="examples">Examples</h3>
 
