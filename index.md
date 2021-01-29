@@ -39,7 +39,7 @@ From the Shopify admin, go to **Online Store** → **Themes** → **Actions** �
 <img src="assets/images/shopify-dupe.png" />
 
 <div class="info-container">
-    <strong>Important note:</strong> Once you start the integration, you should treat this copied theme as your master copy. It is important to not make any changes to your live theme or publish a new theme, as those changes might interfere with the Extend integration.
+    <strong>Important Note:</strong> Once you start the integration, you should treat this copied theme as your master copy. It is important to not make any changes to your live theme or publish a new theme, as those changes might interfere with the Extend integration.
 </div>
 
 <h3 id="get-store-id">Get your store ID</h3>
@@ -55,24 +55,28 @@ Go to <ins>[merchants.extend.com](https://merchants.extend.com/login)</ins>→ *
 <h1 id="installation">Adding the SDK scripts to your theme code</h1>
 
 ---
-  
-Add the following scripts into your **theme.liquid** file right before the closing `</head>` tag and press **save**. 
-  
-```html  
-<script src="https://sdk.helloextend.com/extend-sdk-client/v1/extend-sdk-client.min.js"></script>  
-<script src="https://sdk.helloextend.com/extend-sdk-client-shopify-addon/v1/extend-sdk-client-shopify-addon.min.js"></script>  
-<script>Extend.config({ storeId: '<YOUR_EXTEND_STORE_ID>', environment: 'production' })</script>
+
+Add the following scripts into your **theme.liquid** file right before the closing `</head>` tag and press **save**.
+
+```html
+<script src="https://sdk.helloextend.com/extend-sdk-client/v1/extend-sdk-client.min.js"></script>
+<script src="https://sdk.helloextend.com/extend-sdk-client-shopify-addon/v1/extend-sdk-client-shopify-addon.min.js"></script>
+<script>
+  Extend.config({ storeId: '<YOUR_EXTEND_STORE_ID>', environment: 'production' })
+</script>
 ```
 
 <div class="info-container">
-    <strong>Important Note</strong>: If you installed the <strong>Extend Demo application</strong>, you will need to configure your store with the <strong>demo</strong> environment: 
+    <strong>Important Note:</strong> If you installed the <strong>Extend Demo application</strong>, you will need to configure your store with the <strong>demo</strong> environment:
 </div>
 
-```html  
-<script>Extend.config({ storeId: '<YOUR_EXTEND_STORE_ID>', environment: 'demo' })</script>
+```html
+<script>
+  Extend.config({ storeId: '<YOUR_EXTEND_STORE_ID>', environment: 'demo' })
+</script>
 ```
 
-To verify the scripts are running correctly, **preview** your theme copy, open your browser's console, and type 
+To verify the scripts are running correctly, **preview** your theme copy, open your browser's console, and type
 **'Extend'** or **'ExtendShopify'** and hit enter. Both SDK's should appear in the console.
 
 <img src="assets/images/sdk-verify.jpg" />
@@ -86,7 +90,7 @@ The **Product Offer** is used to display one or more protection plan offers dire
 <img src="assets/images/product-offer-view.png" />
 
 <div class="info-container">
-    <strong>Important Note</strong>: Only products that are <strong>matched</strong> and <strong>active</strong> will display offers. 
+    <strong>Important Note:</strong> Only products that are <strong>matched</strong> and <strong>active</strong> will display offers.
 </div>
 
 <h3 id="offer-element">Adding the Extend offer element</h3>
@@ -102,7 +106,7 @@ Add an HTML element where you would like to place the Extend offer buttons. For 
 <img src="assets/images/extend-offer-div.png" />
 
 <div class="info-container">
-    <strong>Pro Tip</strong>: An easy way to find where to place the parent div element is to open the dev tools on a product page and inspect an element above where you would like the cart offers to appear, copy an attribute, and search for it in one of the liquid files mentioned above.
+    <strong>Important Note:</strong> An easy way to find where to place the parent div element is to open the dev tools on a product page and inspect an element above where you would like the cart offers to appear, copy an attribute, and search for it in one of the liquid files mentioned above.
 </div>
 
 Verify that the div has been added to the correct spot by temporarily adding some text, saving, and previewing your product page. Once you confirm that the text is showing in the correct spot, make sure to remove it!
@@ -113,7 +117,7 @@ Verify that the div has been added to the correct spot by temporarily adding som
 
 ---
 
-Inside your shopify theme code editor create a new snippet called **extend-product-integration**. This is where you will leverage the Extend SDKs to display warranty offers on the product page that customers can add to their carts. As you will see, this file is effectively just a script that will be executed after your product display page is loaded.
+Inside your Shopify theme code editor create a new snippet called **extend-product-integration**. This is where you will leverage the Extend SDKs to display warranty offers on the product page that customers can add to their carts. As you will see, this file is effectively just a script that will be executed after your product display page is loaded.
 
 **Themes** → **Snippets** → **Add a new snippet**
 
@@ -135,7 +139,6 @@ Render the snippet on the same page you added the Extend product offer div by ad
 {% raw %}{% render 'extend-product-integration' %}{% endraw %}
 ```
 
-
 <img src="assets/images/render-prod-snip.png" />
 
 <h3 id="render-buttons">Rendering the Extend warranty offer buttons on the product page</h3>
@@ -153,15 +156,15 @@ var variantId = {% raw %} {{ product.selected_or_first_available_variant.id }} {
 
 // renders the Extend offer buttons for the product
 Extend.buttons.render(
-    '#extend-offer', 
+    '#extend-offer',
     { referenceId: variantId }
 )
 ```
 
-<img src="assets/images/render-offer.png" />
+<img src="assets/images/render-offer.jpg" />
 
 <div class="info-container">
-    <strong>Important Note</strong>: {% raw %}<strong>{{ product.selected_or_first_available_variant.id }}</strong>{% endraw %} allows you to get the first selected <strong>variantId</strong> when the page loads in your Shopify store, however, this variable <strong>does not update</strong> when a user changes the variant. The <a href="#multiple-variants">next section</a> covers how to handle this scenario.
+    <strong>Important Note:</strong> {% raw %}<strong>{{ product.selected_or_first_available_variant.id }}</strong>{% endraw %} allows you to get the first selected <strong>variantId</strong> when the page loads in your Shopify store, however, this variable <strong>does not update</strong> when a user changes the variant. The <a href="#multiple-variants">next section</a> covers how to handle this scenario.
 </div>
 
 Verify that the warranty buttons are rendering by previewing your theme and viewing a product that is active and enabled. If you don’t know a product that fits this criteria, you can find one in the merchant portal [<u>merchants.extend.com</u>](https://merchants.extend.com/login).
@@ -186,14 +189,14 @@ Verify that the warranty buttons are rendering by previewing your theme and view
 
 ---
 
-In order to prevent a customer from accidentally purchasing the wrong warranty for a product, the warranty offers need to be updated every time a shopper selects a different variant for a product. This is done by passing the `variantId` of the newly selected product to the `Extend.setActiveProduct` function. Therefore, you will need to determine how your store updates the product page when a different product variant is selected. This is typically done by dispatching a JavaScript event or by manipulating the window location. Add an event listener to the page and invoke `Extend.setActiveProduct()` with the newly selected `varaintId`.
+In order to prevent a customer from accidentally purchasing the wrong warranty for a product, the warranty offers need to be updated every time a shopper selects a different variant for a product. This is done by passing the `variantId` of the newly selected product to the `Extend.setActiveProduct` function. Therefore, you will need to determine how your store updates the product page when a different product variant is selected. This is typically done by dispatching a JavaScript event or by manipulating the window location. Add an event listener to the page and invoke `Extend.setActiveProduct()` with the newly selected `variantId`.
 
 ```javascript
   Extend.setActiveProduct('#extend-offer', <VariantId>)
 ```
 
 <div class="info-container">
-    <strong>Pro Tip</strong>: A common way to find the event that fires when a product variant is changed is to look at the eventListeners tied to your product options selector.
+    <strong>Important Note:</strong> A common way to find the event that fires when a product variant is changed is to look at the eventListeners tied to your product options selector.
 </div>
 
 <img src="assets/images/evtlist-check.png" />
@@ -211,19 +214,19 @@ Variant IDs are not accessible in the same way across all Shopify themes, but be
 In the example below, the `variantId` is available in the url when the product variant changes. To set the active variant, you need to grab the `variantId` from the url and call `Extend.setActiveProduct()`.
 
 ```javascript
-var productForm = document.querySelector(".product-form");
+var productForm = document.querySelector('.product-form')
 
-productForm.addEventListener("change", function () {
-  var urlParams = new URLSearchParams(window.location.search);
-  var variantId = urlParams.get("variant");
+productForm.addEventListener('change', function() {
+  var urlParams = new URLSearchParams(window.location.search)
+  var variantId = urlParams.get('variant')
   if (variantId) {
-    Extend.setActiveProduct("#extend-offer", variantId);
+    Extend.setActiveProduct('#extend-offer', variantId)
   }
-});
+})
 ```
 
 <div class="info-container">
-    <strong>Important note</strong>: sometimes the `variantId` in the url is only available when the variant changes (and not when you load the page for the first time). You can set the variantId with {% raw %}<strong>{{ product.selected_or_first_available_variant.id }}</strong>{% endraw%} to cover this case.
+    <strong>Important Note:</strong> sometimes the `variantId` in the url is only available when the variant changes (and not when you load the page for the first time). You can set the variantId with {% raw %}<strong>{{ product.selected_or_first_available_variant.id }}</strong>{% endraw%} to cover this case.
 </div>
 
 **Example 2**: `variantId` in <strong>theme.js</strong> file
@@ -231,7 +234,7 @@ productForm.addEventListener("change", function () {
 <img src="assets/images/set-variant-js.jpg" />
 
 <div class="info-container">
-    <strong>Important Note</strong>: The variant change function may be in your Assets folder or somewhere else in your Shopify theme.
+    <strong>Important Note:</strong> The variant change function may be in your Assets folder or somewhere else in your Shopify theme.
 </div>
 
 <h1 id="modal-add-warranties">Rendering the offer modal and adding warranties to the cart</h1>
@@ -249,44 +252,45 @@ The **Modal Offer** is a modal rendered before navigating the customer to a new 
 Select the add to cart button element on the product page using vanillaJS or jQuery and add an eventListener.
 
 ```javascript
-var addToCartButton = document.querySelector("button[name='add']");
+var addToCartButton = document.querySelector("button[name='add']")
 ```
 
 ```javascript
-addToCartButton.addEventListener("click", function (e) {});
+addToCartButton.addEventListener('click', function(e) {})
 ```
 
 In order to add the warranty to the cart or launch the offer modal, you need to prevent the default behavior of the add to cart button. You can do this by adding an `event.preventDefault()` or `event.stopImmediatePropagation()` inside the eventListener.
 
 ```javascript
-e.preventDefault();
+e.preventDefault()
 ```
+
 or
 
 ```javascript
-e.stopImmediatePropagation();
+e.stopImmediatePropagation()
 ```
 
 Inside the add to cart eventListener, add [`ExtendShopify.handleAddToCart()`](#api-handle-add-to-cart) function. Make sure to select `quantity` value from product form and add to [`ExtendShopify.handleAddToCart()`](#api-handle-add-to-cart) function.
 
 ```javascript
-addToCartButton.addEventListener("click", function (e) {
-  e.preventDefault();
+addToCartButton.addEventListener('click', function(e) {
+  e.preventDefault()
 
-  var quantityEl = document.querySelector('[name="quantity"]');
-  var quantity = quantityEl && quantityEl.value;
+  var quantityEl = document.querySelector('[name="quantity"]')
+  var quantity = quantityEl && quantityEl.value
 
-  ExtendShopify.handleAddToCart("#extend-offer", {
+  ExtendShopify.handleAddToCart('#extend-offer', {
     quantity: quantity,
     modal: true,
-    done: function () {
+    done: function() {
       // call function to add your product here
     },
-  });
-});
+  })
+})
 ```
 
-<img src="assets/images/prod-add-to-cart.png">
+<img src="assets/images/prod-add-to-cart.jpg">
 
 To launch the offer modal if a warranty is not selected, set `modal: true`. If you do not want to launch the offer modal, set `modal: false`.
 
@@ -300,13 +304,13 @@ Once the warranty has been added to the cart or the shopper has decided to not a
 
 ```javascript
 // select the form where the add to cart button is in.
-var productForm = document.querySelector(".product-form");
+var productForm = document.querySelector('.product-form')
 
 // call the submit method on the form element to trigger the form submission
-productForm.submit();
+productForm.submit()
 ```
 
-<img src="assets/images/product-submit.png">
+<img src="assets/images/product-submit.jpg">
 
 <h1 id="cart-offers">Adding cart offers</h1>
 
@@ -344,7 +348,7 @@ You also need to verify that the `quantity` and `variantId` are being passed int
 
 <h3 id="cart-integration-snippet">Create custom cart integration snippet</h3>
 
-Inside your shopify theme code editor create a new snippet called **extend-cart-integration**. This is where you will call the Extend APIs to handle adding warranties to the cart.
+Inside your Shopify theme code editor create a new snippet called **extend-cart-integration**. This is where you will call the Extend APIs to handle adding warranties to the cart.
 
 **Themes** → **Snippets** → **Add a new snippet**
 
@@ -367,11 +371,11 @@ To ensure this snippet only runs when the Extend SDK is properly initialized, ad
 </div>
 
 ```javascript
-var slice = Array.prototype.slice;
+var slice = Array.prototype.slice
 
 function findAll(element) {
-  var items = document.querySelectorAll(element);
-  return items ? slice.call(items, 0) : [];
+  var items = document.querySelectorAll(element)
+  return items ? slice.call(items, 0) : []
 }
 
 function hardRefresh() {
@@ -381,7 +385,8 @@ function hardRefresh() {
 
 <div id="hard-refresh-note" class="info-container">
 
-<strong>N.B.:</strong> By using <a href="#helper-functions"><code>hardRefresh</code></a> we guarantee that all cart line item quantity updates are always reflected in the DOM across all browsers. As you will see below, this function will be invoked after adding a plan to the cart via a cart offer and after cart normalization updates have been made to the cart.  
+<strong>Important Note:</strong> By using <a href="#helper-functions"><code>hardRefresh</code></a> we guarantee that all cart line item quantity updates are always reflected in the DOM across all browsers. As you will see below, this function will be invoked after adding a plan to the cart via a cart offer and after cart normalization updates have been made to the cart.
+
 </div>
 
 <i><strong>Gotcha:</strong> In order to hard refresh appropriately across all browsers, we need to use location.href = location.href, which does not work if there is a hash tag # in the URL. The hardRefresh function above safely strips hash tags from the URL. This means when the page reloads, the user will always land at the top of the page.</i>
@@ -393,13 +398,13 @@ Call the `findAll` helper method we added in the last step to find all the Exten
 As you iterate through each item, pull out the `variantId` and the `quantity` from the **#extend-cart-offer** div data attributes.
 
 ```javascript
-var variantId = el.getAttribute("data-extend-variant");
-var quantity = el.getAttribute("data-extend-quantity");
+var variantId = el.getAttribute('data-extend-variant')
+var quantity = el.getAttribute('data-extend-quantity')
 ```
 
 Use the [`warrantyAlreadyInCart()`](#api-warranty-already-in-cart) function to determine if you should show the offer button.
 
-The shopify cart object can be accessed by declaring this variable at the top of your snippet:
+You can access the Shopify cart object by declaring this variable at the top of your page:
 
 ```liquid
 var cart = {% raw %}{{ cart | json }}{% endraw %}
@@ -407,7 +412,7 @@ var cart = {% raw %}{{ cart | json }}{% endraw %}
 
 ```javascript
 if (ExtendShopify.warrantyAlreadyInCart(variantId, cart.items)) {
-  return;
+  return
 }
 ```
 
@@ -416,26 +421,26 @@ Then render the cart offer buttons using the `Extend.buttons.renderSimpleOffer()
 ```javascript
 Extend.buttons.renderSimpleOffer(el, {
   referenceId: variantId,
-  onAddToCart: function ({ plan, product }) {
+  onAddToCart: function(options) {
     ExtendShopify.addPlanToCart(
       {
-        plan: plan,
-        product: product,
+        plan: options.plan,
+        product: options.product,
         quantity: quantity,
       },
-      function (err) {
+      function(err) {
         // an error occurred
         if (err) {
-          return;
+          return
         } else {
           // Effectively hard reloads the page; thus updating the cart
-          hardRefresh();
+          hardRefresh()
           // For ajax carts invoke your cart refresh function
         }
-      }
-    );
+      },
+    )
   },
-});
+})
 ```
 
 [`ExtendShopify.addPlanToCart`](#api-add-plan-to-cart) also takes a callback that can be used to refresh the cart to reflect the recently added warranty.
@@ -446,13 +451,13 @@ function (err) {
   if (err) {
     return
   } else {
-    // Effectively hard reloads the page; thus updating the cart 
-    hardRefresh();
+    // Effectively hard reloads the page; thus updating the cart
+    hardRefresh()
   }
 }
 ```
 
-<img src="assets/images/cart-int-render-button.png">
+<img src="assets/images/cart-int-render-button.jpg">
 
 Verify the cart offer buttons are rendering correctly by previewing your theme and going to your cart page that has an active and enabled product in it. You should see the Extend cart offer button in the cart, and when you click it, it should launch the offer modal. When a shopper clicks this offer button, the modal described in the previous section will launch, and the shopper will be able to select which warranty plan he or she would like to purchase.
 
@@ -473,20 +478,17 @@ var cart = {% raw %}{{ cart | json }}{% endraw %}
 Then add the [`ExtendShopify.normalizeCart`](#api-normalize-cart) function and pass the Shopify Cart object to it:
 
 ```javascript
-ExtendShopify.normalizeCart({ cart: cart, balance: false }, function (
-  err,
-  data
-) {
+ExtendShopify.normalizeCart({ cart: cart, balance: false }, function(err, data) {
   if (data && data.updates) {
-    // Effectively hard reloads the page; thus updating the cart 
-    hardRefresh();
+    // Effectively hard reloads the page; thus updating the cart
+    hardRefresh()
   }
-});
+})
 ```
 
 [`ExtendShopify.normalizeCart`](#api-normalize-cart) will return a promise that will give you the `data` and `err` object to check if the cart needs to be normalized. If the `data` object exists and the `data.updates` is set to `true`, you will then call your function to refresh the cart page. Typically reloading the page will work for most Shopify cart pages.
 
-<img src="assets/images/cart-normalization.png">
+<img src="assets/images/cart-normalization.jpg">
 
 <h3 id="cart-balance">Balanced vs unbalanced carts</h3>
 
@@ -501,11 +503,11 @@ Balanced and unbalanced carts can be toggled with the `balance: true/false` prop
 
 **Not using an AJAX cart?** Feel free to skip ahead to the <a href="#styling" >Styling</a> section.
 
-If you are using an Ajax cart, the page does not reload whenever an item’s quantity is updated. This means that in order to normalize an Ajax cart, you need to identify when the quantity of an item changes and then run the [`ExtendShopify.normalizeCart`](#api-normalize-cart) function. Typically, changing the quantity of the items in the cart will trigger a function that will make an API call to shopify to update the cart. You need to get this new updated Shopify cart object and pass it into the [`ExtendShopify.normalizeCart`](#api-normalize-cart) function.
+If you are using an Ajax cart, the page does not reload whenever an item’s quantity is updated. This means that in order to normalize an Ajax cart, you need to identify when the quantity of an item changes and then run the [`ExtendShopify.normalizeCart`](#api-normalize-cart) function. Typically, changing the quantity of the items in the cart will trigger a function that will make an API call to Shopify to update the cart. You need to get this new updated Shopify cart object and pass it into the [`ExtendShopify.normalizeCart`](#api-normalize-cart) function.
 
-Wrap the cart integration code in a function. ex `initializeCartOffer()`. Then call the `initializeCartOffer()` function at the bottom of your script.
+Define the cart integration code in a function, and then call that function at the bottom of your script. In this example, we defined the function to be called `initializeCartOffer`:
 
-<img src="assets/images/ajax-normalization-1.png">
+<img src="assets/images/ajax-normalization-1.jpg">
 
 Now dispatch an event whenever an item in the cart gets updated. To do this, first add an eventListener in your cart integration script.
 
@@ -516,17 +518,17 @@ Inside the eventListener do the following:
 - Call the function where you wrapped your Extend cart integration script in
 
 ```javascript
-window.addEventListener("normalizeCart", function () {
-  $.getJSON("/cart.js", function (newCart) {
-    cart = newCart;
-    initializeCartOffer();
-  });
-});
+window.addEventListener('normalizeCart', function() {
+  $.getJSON('/cart.js', function(newCart) {
+    cart = newCart
+    initializeCartOffer()
+  })
+})
 ```
 
-<img src="assets/images/ajax-normalization-2.png">
+<img src="assets/images/ajax-normalization-2.jpg">
 
-Now that you have the eventListener initialized, you need to find where in your code to dispatch a custom event. Find where in your Shopify theme the quantity of a cart item is updated and dispatch an event back to the cart integration script to pull in the new shopify cart object.
+Now that you have the eventListener initialized, you need to find where in your code to dispatch a custom event. Find where in your Shopify theme the quantity of a cart item is updated and dispatch an event back to the cart integration script to pull in the new Shopify cart object.
 
 **Example:**
 In the example below, the quantity of a cart item is being updated from the `updateCart()` function in the site.js file:
@@ -568,7 +570,7 @@ You need to add this element under each product in the cart that does not have a
 
 ---
 
-Inside your shopify theme code editor create a new snippet called **extend-ajax-side-cart-integration**. This is where you will call the Extend APIs to handle displaying offers on the product page and adding the warranties to the cart.
+Inside your Shopify theme code editor create a new snippet called **extend-ajax-side-cart-integration**. This is where you will call the Extend APIs to handle displaying offers on the product page and adding the warranties to the cart.
 
 **Themes** → **Snippets** → **Add a new snippet**
 
@@ -583,12 +585,12 @@ Copy the code from the **extend-cart-integration** snippet that you created and 
 Then add an eventListener to dispatch events from your **themes.js** file. This will help rerun the script whenever a product is added or the cart needs to be normalized.
 
 ```javascript
-window.addEventListener("refreshSideCart", function () {
-  $.getJSON("/cart.js", function (newCart) {
-    cart = newCart;
-    initializeCartOffer();
-  });
-});
+window.addEventListener('refreshSideCart', function() {
+  $.getJSON('/cart.js', function(newCart) {
+    cart = newCart
+    initializeCartOffer()
+  })
+})
 ```
 
 <img src="assets/images/ajax-side-cart-snip.png">
@@ -600,11 +602,11 @@ window.addEventListener("refreshSideCart", function () {
 Whenever an extended warranty is added from the ajax side-cart, you need to rebuild your ajax side-cart with the new Shopify cart object as well as call the **ajax-side-cart-integration** script. This will add the warranty to the cart as well as remove the cart offer button from the product in your side-cart.
 
 <div class="info-container">
-    <strong>Pro Tip:</strong> You can add the eventListener to the <strong>ajax-side-cart-integration</strong> script and dispatch custom events from your theme’s javascript file. This will allow you to rerun the snippet whenever a products quantity is changed or if the product is removed.
+    <strong>Important Note:</strong> You can add the eventListener to the <strong>ajax-side-cart-integration</strong> script and dispatch custom events from your theme’s javascript file. This will allow you to rerun the snippet whenever a products quantity is changed or if the product is removed.
 </div>
 
 ```javascript
-window.dispatchEvent(new CustomEvent("cartItemUpdated"));
+window.dispatchEvent(new CustomEvent('cartItemUpdated'))
 ```
 
 <img src="assets/images/ajax-side-cart-add.png">
@@ -612,18 +614,18 @@ window.dispatchEvent(new CustomEvent("cartItemUpdated"));
 In the example below we add our eventListener to allow us to run the function that builds the ajax side-cart. This eventListener will be ran from the custom dispatched event we sent in the previous example.
 
 ```javascript
-window.addEventListener("cartItemUpdated", function (e) {
-  Extend.buttons.instance("#extend-cart-offer").destroy();
+window.addEventListener('cartItemUpdated', function() {
+  Extend.buttons.instance('#extend-cart-offer').destroy()
 
-  $.getJSON("/cart.js", function (cart) {
-    cartUpdateCallback(cart);
-  });
-});
+  $.getJSON('/cart.js', function(cart) {
+    cartUpdateCallback(cart)
+  })
+})
 ```
 
 <img src="assets/images/ajax-side-cart-update.png">
 
-Once the ajax side-cart is rebuilt, you may also need to dispatch an event back to the <strong>ajax-side-cart-integration</strong> snippet to allow for the script to be run again. 
+Once the ajax side-cart is rebuilt, you may also need to dispatch an event back to the <strong>ajax-side-cart-integration</strong> snippet to allow for the script to be run again.
 
 <img src="assets/images/ajax-side-cart-rerun-2.png">
 
@@ -658,7 +660,7 @@ First, make sure you have an Extend warranty added to your cart. Next, navigate 
 
 {% endraw %}
 
- or 
+or
 
 {% raw %}
 
@@ -669,7 +671,7 @@ First, make sure you have an Extend warranty added to your cart. Next, navigate 
 {% endraw %}
 
 <div class="info-container">
-    <strong>Important note:</strong> Sometimes you will have a separate file for the individual cart items. In that case, you will want to make changes to that file. 
+    <strong>Important Note:</strong> Sometimes you will have a separate file for the individual cart items. In that case, you will want to make changes to that file.
 </div>
 
 Within that for loop, find the elements where `class=item-image` and `class=item-title`. The class names might be slightly different, i.e. they may have `cart-` prepended. Within the opening tags of **both** of those elements, add the following line of code:
@@ -682,7 +684,7 @@ Within that for loop, find the elements where `class=item-image` and `class=item
 
 {% endraw %}
 
-Or, if the element is referred to as a `line_item`: 
+Or, if the element is referred to as a `line_item`:
 
 {% raw %}
 
@@ -692,7 +694,7 @@ Or, if the element is referred to as a `line_item`:
 
 {% endraw %}
 
-This will conditionally disable the links on the warranty's thumbnail image and its title. Reload the page and ensure the links are disabled! 
+This will conditionally disable the links on the warranty's thumbnail image and its title. Reload the page and ensure the links are disabled!
 
 <h3 id="hide-warranty-meta-data">Hiding Warranty Meta-Data</h3>
 
@@ -708,7 +710,7 @@ Within the same file, typically below the `item-title` element, you'll see a sec
 
 {% endraw %}
 
-Above this line of code, there will typically be a conditional that checks whether the product options should be displayed or not. The conditional should look something like this:
+Above that line, there will be an conditional to check whether the product options should be displayed. Often it will look lik e the following:
 
 {% raw %}
 
@@ -718,7 +720,7 @@ Above this line of code, there will typically be a conditional that checks wheth
 
 {% endraw %}
 
-Add an `or` statement to the conditional to check whether it's an Extend warranty: 
+Add an `or` statement to the conditional to check whether it's an Extend warranty:
 
 {% raw %}
 
@@ -728,18 +730,18 @@ Add an `or` statement to the conditional to check whether it's an Extend warrant
 
 {% endraw %}
 
-Finally, you'll see a section of code that lists the products properties. Look for an element with a class name that starts with `product-details`. Within the opening tag of that element, you'll see a conditional that looks something like the following: 
+Finally, you'll see a section of code that lists the products properties. Look for an element with a class name that starts with `product-details`. Within the opening tag of that element, you'll see a conditional that looks something like the following:
 
 {% raw %}
 
 ```javascript
-{%if property_size == 0%} hide {% endif %}
+{%if property_size == 0%} hide{% endif %}
 ```
 
 {% endraw %}
 
 Add `or` statements to the conditional to check whether the property is of type `Ref`, `Extend.LeadToken` or `Extend.LeadQuantity`:
-  
+
 {% raw %}
 
 ```javascript
@@ -748,7 +750,7 @@ Add `or` statements to the conditional to check whether the property is of type 
 
 {% endraw %}
 
-The final product should look something like the following: 
+The final product should look something like the following:
 
 {% raw %}
 
@@ -757,7 +759,7 @@ The final product should look something like the following:
   {% for line_item in cart.items %}
   <tr class="cart-item" data-id="{{ line_item.id }}">
     <td class="image">
-      <div 
+      <div
             class="item-image"
             {% if line_item.vendor == 'Extend' %}style="pointer-events: none;" {% endif %}
             >
@@ -767,7 +769,7 @@ The final product should look something like the following:
       </div>
     </td>
     <td class="item-name">
-      <div 
+      <div
             class="item-title"
             {% if line_item.vendor == 'Extend' %} style="pointer-events: none;" {% endif %}
             >
@@ -801,7 +803,7 @@ That's it! Give your page a refresh and ensure you can no longer see the warrant
 
 ---
 
-Extend provides a way for merchants to offer customers protection plans for products they have already purchased. In order to display post-purchase warranties to customers, they need to be added as *leads*. To learn more about creating leads, check out our documentation <a href="https://docs.google.com/document/d/1S7vOuY7TeyIbuzCoE_T2mAmmBQ2_9mOuxppbOKyn230/edit?usp=sharing">here</a>. Once you have created leads, you can enable post-purchase offers in your store by following these two steps: 
+Extend provides a way for merchants to offer customers protection plans for products they have already purchased. In order to display post-purchase warranties to customers, they need to be added as _leads_. To learn more about creating leads, check out our documentation <a href="https://docs.google.com/document/d/1S7vOuY7TeyIbuzCoE_T2mAmmBQ2_9mOuxppbOKyn230/edit?usp=sharing">here</a>. Once you have created leads, you can enable post-purchase offers in your store by following these two steps:
 
 First, create a new snippet with the following title: `extend-aftermarket-integration`.
 
@@ -809,22 +811,33 @@ Within that snippet, copy and paste the following code:
 
 ```html
 <script>
-if (window.Extend && window.ExtendShopify) {
-  var urlParams = new URLSearchParams(window.location.search);
-  var leadToken = urlParams.get('leadtoken');
-  if(leadToken) {
-    Extend.aftermarketModal.open({
-      leadToken: leadToken,
-      onClose: function(plan, product, quantity) {
-        if(plan && product) {
-          ExtendShopify.addPlanToCart({plan: plan, product: product, leadToken: leadToken, quantity: quantity || 1}, function() {
-              window.location = '/cart'
-          }) 
-        }
+  if (window.Extend && window.ExtendShopify) {
+    function getQueryParam(name) {
+      var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href)
+      if (results == null) {
+        return null
       }
-    }) 
+      return decodeURI(results[1]) || 0
+    }
+
+    var leadToken = getQueryParam('leadtoken')
+    if (leadToken) {
+      Extend.aftermarketModal.open({
+        leadToken: leadToken,
+        onClose: function(plan, product, quantity) {
+          if (plan && product) {
+            ExtendShopify.addPlanToCart(
+              { plan: plan, product: product, leadToken: leadToken, quantity: quantity },
+              function() {
+                // You can insert a custom callback if you don't want to redirect to the cart page
+                window.location = '/cart'
+              },
+            )
+          }
+        },
+      })
+    }
   }
-}
 </script>
 ```
 
@@ -838,7 +851,7 @@ Next, in your `theme.liquid` file, add the following line of code before the clo
 
 {% endraw %}
 
-That's it! You have enabled post-purchase offers for customers added as leads. 
+That's it! You have enabled post-purchase offers for customers added as leads.
 
 <h3 id="final-review">Final review</h3>
 
@@ -846,13 +859,12 @@ Congratulations, you have finished integrating the Extend Client SDK into your s
 
 ---
 
-
 <h1 id="api-reference">ExtendShopify API Reference</h1>
 
 ---
 
 <h3 id="api-introduction">Introduction</h3>
-Welcome to the `ExtendShopify` API reference! We're happy that you've decided to partner with us and leverage our Shopify SDK. This reference details the functions available to you via the `ExtendShopify` SDK interface and should be used in conjunction with our [`Extend Shopify Integration Guide`](#overview). If you haven't already done so, be sure to [create your store](#setting-up) and [add the Extend base SDK and Extend Shopify SDK scripts](#installation) to your store's `theme.liquid` file. 
+Welcome to the `ExtendShopify` API reference! We're happy that you've decided to partner with us and leverage our Shopify SDK. This reference details the functions available to you via the `ExtendShopify` SDK interface and should be used in conjunction with our [`Extend Shopify Integration Guide`](#overview). If you haven't already done so, be sure to [create your store](#setting-up) and [add the Extend base SDK and Extend Shopify SDK scripts](#installation) to your store's `theme.liquid` file.
 
 <h3 id="api-table-of-contents">Table of Contents</h3>
 * [Add plan to cart (`#addPlanToCart`)](#api-add-plan-to-cart)
@@ -866,16 +878,14 @@ Welcome to the `ExtendShopify` API reference! We're happy that you've decided to
 
 ---
 
-<div>
-This function adds an Extend warranty plan to the cart. However, it should only be used within a callback that is provided to an <a href="https://helloextend.github.io/extend-sdk-client/">Extend base SDK</a> function that returns an Extend Plan and Product. **N.B** If you are looking to add a product _**and**_ its associated warranty to the cart, please see [`#handleAddToCart`](#api-handle-add-to-cart) instead.
-</div>
+This function adds an Extend warranty plan to the cart. However, it should only be used within a callback that is provided to an [Extend base SDK]('https://helloextend.github.io/extend-sdk-client/') function that returns an Extend Plan and Product. **Important Note:** If you are looking to add a product _**and**_ its associated warranty to the cart, please see [`#handleAddToCart`](#api-handle-add-to-cart) instead.
 
 ```javascript
 ExtendShopify.addPlanToCart({ plan, product, quantity }, callback)
 ```
 
 <div class="info-container">
-    <strong>Example use case:</strong> 
+    <strong>Example use case:</strong>
     <a href="#render-cart-offer-buttons">
         <code>Extend.buttons.renderSimpleOffer</code>
     </a>
@@ -887,21 +897,19 @@ ExtendShopify.addPlanToCart({ plan, product, quantity }, callback)
 
 <h3 id="add-plan-to-cart-attributes">Attributes</h3>
 
-| Attribute                             | Data type         | Description                                                                 |
-| :-------------------------------------|:----------------- | :---------------------------------------------------------------------------|
-| addToCartOptions <br/> _**required**_ | object            | [AddToCartOptions](#add-to-cart-options-attributes)                         |
-| callback <br/> _optional_             | function          | Callback function that will be executed after the item is added to the cart |
-
+| Attribute                             | Data type | Description                                                                 |
+| :------------------------------------ | :-------- | :-------------------------------------------------------------------------- |
+| addToCartOptions <br/> _**required**_ | object    | [AddToCartOptions](#add-to-cart-options-attributes)                         |
+| callback <br/> _optional_             | function  | Callback function that will be executed after the item is added to the cart |
 
 <h3 id="add-to-cart-options-attributes">AddToCartOptions Object</h3>
 
-| Attribute                         | Data type       | Description                                                  |
-| :-------------------------------- |:--------------- | :----------------------------------------------------------- |
-| plan <br/> _**required**_         | object          | Extend plan object to be added to the cart                   |
-| product <br/> _**required**_      | object          | Product associated with the warranty plan                    |
-| quantity <br/> _optional_         | number          | Number of plans to be added to the cart (defaults to one)    |
-| leadToken <br/> _optional_        | string          | Token used for [post purchase offers](#post-purchase-offers) |
-
+| Attribute                    | Data type | Description                                                  |
+| :--------------------------- | :-------- | :----------------------------------------------------------- |
+| plan <br/> _**required**_    | object    | Extend plan object to be added to the cart                   |
+| product <br/> _**required**_ | object    | Product associated with the warranty plan                    |
+| quantity <br/> _optional_    | number    | Number of plans to be added to the cart (defaults to one)    |
+| leadToken <br/> _optional_   | string    | Token used for [post purchase offers](#post-purchase-offers) |
 
 <h3 class="api-interface">Interfaces</h3>
 
@@ -927,37 +935,33 @@ interface AddToCartOpts {
 
 ---
 
-This function accepts and updates the Shopify cart object to ensure that the line item quantity of a warranty is not greater than the line item quantity of its associated product and returns an object containing the updated cart and cart updates. Therefore, this function should be executed every time the cart is updated in order to ensure a user cannot buy a warranty for a product not in the cart. While optional, a callback should almost always be passed as a second argument. This callback will be executed after the cart normalizes and should therefore be used to update the quantity input selectors on the page with their updated values, typically via a [hard refresh](#helper-functions).
+This function accepts and updates the Shopify cart object to ensure that the line item quantity of a warranty is not greater than the line item quantity of its associated product and returns an object containing the updated cart and cart updates. Therefore, this function should be executed every time the cart is updated in order to ensure a user cannot buy a warranty for a product not in the cart. While optional, a callback should almost always be passed as a second argument. This callback will be executed after the cart normalizes and should therefore be used to update the quantity input selectorson the page with their updated values, typically via a [hard refresh](#helper-functions).
 
 <div class="info-container">
     <strong>Use case: </strong> <a href="#cart-normalization">Cart normalization</a>
 </div>
 
 ```javascript
-ExtendShopify.normalizeCart({ cart: cart, balance: false }, function (
-  err,
-  data
-) {
+ExtendShopify.normalizeCart({ cart: cart, balance: false }, function(err, data) {
   if (data && data.updates) {
     hardRefresh()
   }
-});
+})
 ```
-
 
 <h3>Attributes</h3>
 
-| Attribute                                 | Data type       | Description                                                                                                          |
-| :---------------------------------------- |:--------------- | :--------------------------------------------------------------------------------------------------------------------|
-| normalizeCartOptions <br/> _**required**_ | object          | [NormalizeCartOptions](#api-normalize-cart-options-object)                                                           |
-| callback <br/> _optional_                 | function        | Callback function that will be executed after the `normalizeCart` function is invoked (Typically refreshes the cart) |
+| Attribute                                 | Data type | Description                                                                                                          |
+| :---------------------------------------- | :-------- | :------------------------------------------------------------------------------------------------------------------- |
+| normalizeCartOptions <br/> _**required**_ | object    | [NormalizeCartOptions](#api-normalize-cart-options-object)                                                           |
+| callback <br/> _optional_                 | function  | Callback function that will be executed after the `normalizeCart` function is invoked (Typically refreshes the cart) |
 
 <h3 id="api-normalize-cart-options-object">NormalizeCartOptions Object</h3>
 
-| Attribute                         | Data type                   | Description                                                                     |
-| :-------------------------------- |:--------------------------- | :-------------------------------------------------------------------------------|
-| cart <br/> _optional_             | object                      | Shopify cart object to be normalized                                            |
-| balance <br/> _optional_          | boolean                     | When set to `true` warranty quantity will equal the associated product quantity (see: [Balanced cart](#cart-balance)) |
+| Attribute                | Data type | Description                                                                     |
+| :----------------------- | :-------- | :------------------------------------------------------------------------------ |
+| cart <br/> _optional_    | object    | Shopify cart object to be normalized                                            |
+| balance <br/> _optional_ | boolean   | When set to `true` warranty quantity will equal the associated product quantity |
 
 <h3 class="api-interface" id="api-normalize-cart-interfaces">Interfaces</h3>
 
@@ -980,11 +984,10 @@ interface NormalizeCartOptions {
 
 <h3>Attributes</h3>
 
-| Attribute                         | Data type       | Description                                                              |
-| :-------------------------------- |:--------------- | :------------------------------------------------------------------------|
-| cart                              | object          | Normalized Cart Object                                                   |
-| updates                           | object or null  | Object containing the updated `variantId`'s and their updated quantities |
-
+| Attribute | Data type      | Description                                                              |
+| :-------- | :------------- | :----------------------------------------------------------------------- |
+| cart      | object         | Normalized Cart Object                                                   |
+| updates   | object or null | Object containing the updated `variantId`'s and their updated quantities |
 
 <h3 class="api-interface" id="api-normailze-cart-interfaces">Interfaces</h3>
 
@@ -1009,7 +1012,6 @@ interface Cart {
   currency: string
   items: CartLineItem[]
 }
-
 ```
 
 <h1 id="api-handle-add-to-cart">
@@ -1018,37 +1020,32 @@ interface Cart {
 
 ---
 
-This function will check the [Extend offer buttons](#render-buttons) for a selected plan. If a plan is selected, the function will add the plan to the cart and then execute a callback provided in the [`HandleAddToCartOpts`](#handle-add-to-cart-opts) object. If a plan is **_NOT_** selected, the function will check the [`HandleAddToCartOpts`](#handle-add-to-cart-opts) to determine whether or not to render the [Extend offer modal](#modal-add-warranties). The `done` callback provided will be executed after the user adds a warranty, clicks 'No, thanks' or closes the modal. Use this callback to call your stores add to cart function or your product submit form. 
+This function will check the [Extend offer buttons](#render-buttons) for a selected plan. If a plan is selected, the function will add the plan to the cart and then execute a callback provided in the [`HandleAddToCartOpts`](#handle-add-to-cart-opts) object. If a plan is **_NOT_** selected, the function will check the [`HandleAddToCartOpts`](#handle-add-to-cart-opts) to determine whether or not to render the [Extend offer modal](#modal-add-warranties). The `done` callback provided will be executed after the user adds a warranty, clicks 'No, thanks' or closes the modal. Use this callback to call your stores add to cart function or your product submit form.
 
 ```javascript
-ExtendShopify.handleAddToCart(
-  "#extend-offer",
-  {
-    quantity: quantity,
-    modal: true,
-    done: function () {
-      // callback logic to add the product to the cart
-    },
-  }
-);
+ExtendShopify.handleAddToCart('#extend-offer', {
+  quantity: quantity,
+  modal: true,
+  done: function() {
+    // callback logic to add the product to the cart
+  },
+})
 ```
 
 <h3>Attributes</h3>
 
-
-| Attribute                                | Data type           | Description                                                                                 |
-| :--------------------------------------  |:-----------------   | :-------------------------------------------------------------------------------------------|
-| element <br/> _**required**_             | string              | The ID of the [container element]('#offer-element') used to render the Extend offer buttons |
-| HandleAddToCartOpts <br/> _**required**_ | object              | [HandleAddToCartOpts](#handle-add-to-cart-opts)                                             |
-
+| Attribute                                | Data type | Description                                                                               |
+| :--------------------------------------- | :-------- | :---------------------------------------------------------------------------------------- |
+| element <br/> _**required**_             | string    | The ID of the [container element](#offer-element) used to render the Extend offer buttons |
+| HandleAddToCartOpts <br/> _**required**_ | object    | [HandleAddToCartOpts](#handle-add-to-cart-opts)                                           |
 
 <h3>HandleAddToCartOpts Object</h3>
 
-| Attribute                         | Data type       | Description                                                                       |
-| :-------------------------------- |:--------------- | :---------------------------------------------------------------------------------|
-| modal <br/> _optional_            | boolean         | Determines whether to render the modal if no plan is selected (defaults to true)  |
-| quantity <br/> _optional_         | integer         | Quantity of warranties to add to the cart (defaults to one)                       |
-| done <br/> _optional_             | function        | Callback executed after the warranty business logic                               |
+| Attribute                 | Data type | Description                                                                      |
+| :------------------------ | :-------- | :------------------------------------------------------------------------------- |
+| modal <br/> _optional_    | boolean   | Determines whether to render the modal if no plan is selected (defaults to true) |
+| quantity <br/> _optional_ | integer   | Quantity of warranties to add to the cart (defaults to one)                      |
+| done <br/> _optional_     | function  | Callback executed after the warranty business logic                              |
 
 <h3 class="api-interface">Interfaces</h3>
 
@@ -1066,7 +1063,6 @@ interface HandleAddToCartOpts {
   done?: Callback
 }
 ```
-
 
 <h1 id='api-warranty-already-in-cart'>
     ExtendShopify.warrantyAlreadyInCart(variantId: string, cartItems: CartItem[])
@@ -1088,7 +1084,7 @@ if (ExtendShopify.warrantyAlreadyInCart(variantId, cart.items)) {
 
 <h3>Attributes</h3>
 
-| Attribute     | Data type       | Description                                                          |
-| :------------ |:--------------- | :--------------------------------------------------------------------|
-| variantId     | string          | This Shopify `variantId` of the product to be checked for a warranty |
-| cartItems     | array           | The array of cart items stored on the Shopify cart items property    |
+| Attribute | Data type | Description                                                          |
+| :-------- | :-------- | :------------------------------------------------------------------- |
+| variantId | string    | This Shopify `variantId` of the product to be checked for a warranty |
+| cartItems | array     | The array of cart items stored on the Shopify cart items property    |
